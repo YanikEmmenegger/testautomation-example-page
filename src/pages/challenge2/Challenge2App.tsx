@@ -6,6 +6,7 @@ import Challenge2LoginPage from "./Challenge2LoginPage.tsx";
 import TodoPage2 from "./TodoPage2.tsx";
 
 function Challenge2App() {
+    document.title = "Challenge #2";
     return (
         <Routes>
             {/* The default route -> check isLoggedIn -> /login or /todo */}

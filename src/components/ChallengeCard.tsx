@@ -10,7 +10,7 @@ const ChallengeCard: FC<ChallengeCardProps> = ({challenge}) => {
         <div
             id={challenge.id}
             className="
-        bg-white
+        bg-neutral-100
         rounded-md
         shadow-md
         p-4

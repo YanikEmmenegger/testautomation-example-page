@@ -1,9 +1,11 @@
 // src/App.tsx
-import { Routes, Route } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 
 import Home from "./pages/Home";
 import Challenge1App from "./pages/challenge1/Challenge1App";
-import Challenge2App from "./pages/challenge2/Challenge2App.tsx"; // The "mini-app" for Challenge #1
+import Challenge2App from "./pages/challenge2/Challenge2App.tsx";
+import Challenge3App from "./pages/challenge3/Challenge3App.tsx";
+import ToastProvider from "./context/ToastProvider.tsx"; // The "mini-app" for Challenge #1
 
 function App() {
     return (
@@ -19,7 +21,7 @@ function App() {
             {/*        /!* Possibly other links *!/*/}
             {/*    </ul>*/}
             {/*</nav>*/}
-
+            <ToastProvider/>
             <main>
                 <Routes>
                     {/* Home page */}
@@ -28,6 +30,7 @@ function App() {
                     {/* CHALLENGE 1 mini-app routes */}
                     <Route path="/challenge-1/*" element={<Challenge1App />} />
                     <Route path="/challenge-2/*" element={<Challenge2App />} />
+                    <Route path="/challenge-3/*" element={<Challenge3App/>}/>
 
                     {/* Other challenges... */}
                 </Routes>
