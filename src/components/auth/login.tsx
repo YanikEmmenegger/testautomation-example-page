@@ -9,6 +9,7 @@ export interface LoginProps {
     title?: string;
     onSubmit: (username: string, password: string) => void;
     errorMessage?: string;
+    loading?: boolean;
 
     /**
      * If true, we include all 'id' attributes
@@ -29,6 +30,7 @@ const Login: React.FC<LoginProps> = ({
                                          title = "Login",
                                          onSubmit,
                                          errorMessage,
+                                            loading = false,
                                          withIds = true,          // Default to true if you'd like
                                          withCustomClasses = true // Default to true if you'd like
                                      }) => {
@@ -70,7 +72,7 @@ const Login: React.FC<LoginProps> = ({
                             // If withIds is false, set id to undefined
                             id={withIds ? "login-username-input" : undefined}
                             type="text"
-                            placeholder="Enter username"
+                            placeholder="Enter use rname"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             // Conditionally add custom class
@@ -111,10 +113,17 @@ const Login: React.FC<LoginProps> = ({
                         type="submit"
                         className="w-full mt-2"
                     >
-                        Log In
+                        {
+                            loading ? "logging in..." : "Login"
+                        }
                     </Button>
                 </form>
             </div>
+            <a className={"fixed top-2 left-2"} href={"/"}>
+                <Button>
+                    Home
+                </Button>
+            </a>
         </div>
     );
 };

@@ -2,7 +2,7 @@ import {Toaster} from "react-hot-toast";
 
 const ToasterProvider = () => {
     return (
-        <Toaster containerClassName={"toast-container"} position="bottom-center" toastOptions={
+        <Toaster containerClassName={"toast-container"} position="bottom-right" toastOptions={
             {
                 className: "toast",
                 style: {

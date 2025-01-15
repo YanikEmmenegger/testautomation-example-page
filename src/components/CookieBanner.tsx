@@ -25,8 +25,7 @@ const CookieBanner: React.FC = () => {
         <div className="fixed left-0 bottom-0 w-full bg-gray-800 text-white p-4">
             <div className="max-w-xl mx-auto flex items-center justify-between">
                 <p>
-                    This website uses cookies to improve your experience. By clicking
-                    "Accept", you agree to the usage of these cookies.
+                    This website uses cookies to improve your experience. Accept to continue.
                 </p>
                 <button
                     onClick={handleAccept}

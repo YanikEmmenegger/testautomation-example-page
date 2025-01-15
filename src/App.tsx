@@ -5,7 +5,9 @@ import Home from "./pages/Home";
 import Challenge1App from "./pages/challenge1/Challenge1App";
 import Challenge2App from "./pages/challenge2/Challenge2App.tsx";
 import Challenge3App from "./pages/challenge3/Challenge3App.tsx";
-import ToastProvider from "./context/ToastProvider.tsx"; // The "mini-app" for Challenge #1
+import ToastProvider from "./context/ToastProvider.tsx";
+import Challenge5App from "./pages/challenge5/Challenge5App.tsx";
+import Challenge4App from "./pages/challenge4/Challenge4App.tsx"; // The "mini-app" for Challenge #1
 
 function App() {
     return (
@@ -31,6 +33,8 @@ function App() {
                     <Route path="/challenge-1/*" element={<Challenge1App />} />
                     <Route path="/challenge-2/*" element={<Challenge2App />} />
                     <Route path="/challenge-3/*" element={<Challenge3App/>}/>
+                    <Route path="/challenge-4/*" element={<Challenge4App/>}/>
+                    <Route path="/challenge-5/*" element={<Challenge5App/>}/>
 
                     {/* Other challenges... */}
                 </Routes>

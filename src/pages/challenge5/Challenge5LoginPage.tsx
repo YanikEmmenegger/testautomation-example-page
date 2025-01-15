@@ -1,4 +1,4 @@
-// src/pages/challenge3/Challenge3LoginPage.tsx
+// src/pages/challenge5/Challenge5LoginPage.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -16,7 +16,7 @@ const Challenge3LoginPage: React.FC = () => {
         setLoading(true);
         const success = await loginDelayed(username, password);
         if (success) {
-            navigate("/challenge-3/todo");
+            navigate("/challenge-5/kanban");
             setLoading(false);
         } else {
             setError("Invalid username or password");
@@ -26,13 +26,13 @@ const Challenge3LoginPage: React.FC = () => {
 
     return (
         <Login
-            title="Challenge #3 Login"
+            title="Challenge #5 Login"
             onSubmit={handleSubmit}
             errorMessage={error}
             loading={loading}
             withIds={true}
             withCustomClasses={true}
-            id="challenge-1-login-page"
+            id="challenge-5-login-page"
         />
     );
 };

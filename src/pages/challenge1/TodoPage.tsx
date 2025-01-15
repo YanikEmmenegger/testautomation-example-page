@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
+import React, {useEffect, useState} from "react";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
+import {useNavigate} from "react-router-dom";
 
 interface Todo {
     id: number;
@@ -13,7 +13,7 @@ interface Todo {
 const LOCAL_STORAGE_KEY = "challenge1-todos";
 
 const TodoPage: React.FC = () => {
-    const { logout } = useAuth();
+    const navigate = useNavigate();
 
     // ----------------------------------------------------------------
     // 1) State initialization: load from local storage if present
@@ -43,9 +43,9 @@ const TodoPage: React.FC = () => {
     // ----------------------------------------------------------------
     // 3) Statistics: total, completed, incomplete
     // ----------------------------------------------------------------
-    const totalCount = todos.length;
-    const completedCount = todos.filter((t) => t.completed).length;
-    const incompleteCount = totalCount - completedCount;
+    const totalCount = todos.length-1 > 0 ? todos.length-1 : 0;
+    const completedCount = todos.filter((t) => !t.completed).length;
+    const incompleteCount = todos.filter((t) => t.completed).length;
 
     // ----------------------------------------------------------------
     // 4) Add a New Todo
@@ -133,7 +133,7 @@ const TodoPage: React.FC = () => {
                     className="logout-btn"
                     aria-label="Logout Button"
                     data-testid="logout-button"
-                    onClick={logout}
+                    onClick={() => navigate("../login")}
                 >
                     Logout
                 </Button>
@@ -260,15 +260,14 @@ const TodoPage: React.FC = () => {
                                         id={`todo-edit-input-${todo.id}`}
                                         type="text"
                                         aria-label="Edit Todo Input"
-                                        data-testid={`todo-edit-input-${todo.id}`}
                                         value={editingText}
                                         onChange={(e) => setEditingText(e.target.value)}
-                                        className="flex-1"
+                                        className="flex-1 todo-input-edit"
                                     />
                                     <Button
                                         id={`todo-save-button-${todo.id}`}
                                         aria-label="Save Edit Button"
-                                        data-testid={`todo-save-button-${todo.id}`}
+                                        className={"todo-button-save-edit"}
                                         onClick={handleSaveEdit}
                                     >
                                         Save
@@ -311,9 +310,8 @@ const TodoPage: React.FC = () => {
                                 {editingTodoId !== todo.id && (
                                     <Button
                                         id={`todo-edit-button-${todo.id}`}
-                                        className="bg-yellow-500 hover:bg-yellow-600"
+                                        className="bg-yellow-500 hover:bg-yellow-600 todo-button-edit"
                                         aria-label="Edit Todo Button"
-                                        data-testid={`todo-edit-button-${todo.id}`}
                                         onClick={() => handleEdit(todo)}
                                     >
                                         Edit
@@ -321,18 +319,16 @@ const TodoPage: React.FC = () => {
                                 )}
                                 <Button
                                     id={`todo-complete-button-${todo.id}`}
-                                    className="bg-green-600 hover:bg-green-700"
+                                    className="bg-green-600 hover:bg-green-700 todo-button-complete"
                                     aria-label="Toggle Complete Button"
-                                    data-testid={`todo-complete-button-${todo.id}`}
                                     onClick={() => handleToggleComplete(todo.id)}
                                 >
                                     {todo.completed ? "Undo" : "Complete"}
                                 </Button>
                                 <Button
                                     id={`todo-delete-button-${todo.id}`}
-                                    className="bg-red-600 hover:bg-red-700"
+                                    className="bg-red-600 hover:bg-red-700 todo-button-delete"
                                     aria-label="Delete Todo Button"
-                                    data-testid={`todo-delete-button-${todo.id}`}
                                     onClick={() => handleDelete(todo.id)}
                                 >
                                     Delete

@@ -1,7 +1,5 @@
 // src/pages/challenge1/Challenge2App.tsx
-import { Routes, Route, Navigate } from "react-router-dom";
-
-import ProtectedRoute from "../../components/auth/ProtectedRoute";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Challenge1LoginPage from "./Challenge1LoginPage";
 import TodoPage from "./TodoPage";
 
@@ -11,7 +9,7 @@ function Challenge1App() {
     return (
         <Routes>
             {/* The default route -> check isLoggedIn -> /login or /todo */}
-            <Route index element={<Navigate to="todo" replace />} />
+            <Route index element={<Navigate to="login" replace/>}/>
 
             {/* /challenge-1/login */}
             <Route path="login" element={<Challenge1LoginPage />} />
@@ -20,9 +18,7 @@ function Challenge1App() {
             <Route
                 path="todo"
                 element={
-                    <ProtectedRoute redirectPath="/challenge-1/login">
                         <TodoPage />
-                    </ProtectedRoute>
                 }
             />
         </Routes>

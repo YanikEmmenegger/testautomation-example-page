@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
+import React, {useEffect, useState} from "react";
+import {useAuth} from "../../context/AuthContext";
 import CookieBanner from "../../components/CookieBanner";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
-import { simulateDelay } from "../../utils/simulateDelay";
-import { toast } from "react-hot-toast";
+import {simulateDelay} from "../../utils/simulateDelay";
+import {toast} from "react-hot-toast";
 
 interface Todo {
     id: number;
@@ -173,19 +173,7 @@ const TodoPage3: React.FC = () => {
         setSortAsc((prev) => !prev);
     };
 
-    // If loading on initial mount
-    if (loadingTodos) {
-        return (
-            <div
-                id="todo-page-loading-container"
-                className="min-h-screen bg-gray-100 p-6 flex flex-col items-center justify-center"
-                aria-label="Todo Page Loading Container"
-            >
-                <CookieBanner />
-                <p>Loading todos, please wait...</p>
-            </div>
-        );
-    }
+
 
     // Sort them
     const sortedTodos = [...todos].sort((a, b) => {
@@ -293,6 +281,7 @@ const TodoPage3: React.FC = () => {
                 </div>
 
                 {/* TODO LIST */}
+                {loadingTodos ? (<p>Loading todos...</p>) : (
                 <ul
                     id="todo-list"
                     className="space-y-2"
@@ -426,7 +415,7 @@ const TodoPage3: React.FC = () => {
                             </li>
                         );
                     })}
-                </ul>
+                </ul>)}
             </div>
         </div>
     );

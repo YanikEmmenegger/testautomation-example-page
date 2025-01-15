@@ -25,6 +25,8 @@ const Button: FC<ButtonProps> = ({id, className, children, ...props}) => {
         rounded
         hover:bg-blue-700
         transition-colors
+        disabled:opacity-60
+        disabled:cursor-not-allowed
         ${className ?? ""}
       `}
             {...props}
