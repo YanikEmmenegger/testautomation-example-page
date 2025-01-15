@@ -13,7 +13,7 @@ export const challenges: Challenge[] = [
             "Create one or more Testcases creating, editing, completing, undo and deleting todos",
             "Create one or more Testcases to check if the Total, Completed and Incomplete todos are displayed correctly",
             "Create one or more Testcases to check if the todos are stored in the local storage and are still there after a logout (should be the same when closing the browser, private browsing does not work)",
-            "Try to find some bugs in the app by test not allowed inputs or actions and by validation outputs",
+            "Try to find some bugs in the app by testing not allowed inputs or actions and by validation outputs",
         ],
         link: "challenge-1/",
         difficulty: 1
@@ -31,7 +31,7 @@ export const challenges: Challenge[] = [
             "Create one or more Testcases creating, editing, completing, undo and deleting todos",
             "Create one or more Testcases to check if the Total, Completed and Incomplete todos are displayed correctly",
             "Create one or more Testcases to check if the todos are stored in the local storage and are still there after a logout (should be the same when closing the browser, private browsing does not work)",
-            "Try to find some bugs in the app by test not allowed inputs or actions and by validation outputs",
+            "Try to find some bugs in the app by testing not allowed inputs or actions and by validation outputs",
         ],
         link: "challenge-2/",
         difficulty: 3
@@ -48,7 +48,7 @@ export const challenges: Challenge[] = [
             "Create one or more Testcases creating, editing, completing, undo and deleting todos",
             "Create one or more Testcases to check if the Total, Completed and Incomplete todos are displayed correctly",
             "Create one or more Testcases to check if the todos are stored in the local storage and are still there after a logout (should be the same when closing the browser, private browsing does not work)",
-            "Try to find some bugs in the app by test not allowed inputs or actions and by validation outputs, there should be none left (report if you find any)",
+            "Try to find some bugs in the app by testing not allowed inputs or actions and by validation outputs, there should be none left (report if you find any)",
             "You can build all the modules and testcases from scratch or use the ones from the previous challenges, they might work with some adjustments ",
         ],
         link: "challenge-3/",

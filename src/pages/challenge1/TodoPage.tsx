@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
-import {useNavigate} from "react-router-dom";
+import {useAuth} from "../../context/AuthContext.tsx";
 
 interface Todo {
     id: number;
@@ -13,7 +13,8 @@ interface Todo {
 const LOCAL_STORAGE_KEY = "challenge1-todos";
 
 const TodoPage: React.FC = () => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
+    const {logout} = useAuth();
 
     // ----------------------------------------------------------------
     // 1) State initialization: load from local storage if present
@@ -43,7 +44,7 @@ const TodoPage: React.FC = () => {
     // ----------------------------------------------------------------
     // 3) Statistics: total, completed, incomplete
     // ----------------------------------------------------------------
-    const totalCount = todos.length-1 > 0 ? todos.length-1 : 0;
+    const totalCount = todos.length - 1;
     const completedCount = todos.filter((t) => !t.completed).length;
     const incompleteCount = todos.filter((t) => t.completed).length;
 
@@ -128,14 +129,15 @@ const TodoPage: React.FC = () => {
                 className="flex justify-end mb-4"
                 aria-label="Header Section"
             >
+
                 <Button
                     id="todo-logout-button"
                     className="logout-btn"
+                    onClick={logout}
                     aria-label="Logout Button"
                     data-testid="logout-button"
-                    onClick={() => navigate("../login")}
                 >
-                    Logout
+                    <a href={"/challenge-1/login"}>Logout</a>
                 </Button>
             </div>
 

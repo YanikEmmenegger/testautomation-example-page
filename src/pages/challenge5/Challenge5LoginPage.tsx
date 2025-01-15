@@ -1,12 +1,17 @@
 // src/pages/challenge5/Challenge5LoginPage.tsx
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Login from "../../components/auth/login.tsx";
 
 const Challenge3LoginPage: React.FC = () => {
-    const { loginDelayed } = useAuth();
+    const { loginDelayed, isLoggedIn } = useAuth();
     const navigate = useNavigate();
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate("/challenge-5/kanban");
+        }
+    });
 
     const [error, setError] = useState("");
 
