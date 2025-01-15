@@ -1,11 +1,12 @@
 // src/components/ChallengeCard.tsx
 
-import  { FC } from "react";
-import { Challenge } from "../types";
+import  {FC} from "react";
+import {Challenge} from "../types";
 import UserStoryCard from "./UserStoryCard";
-import CollapsableSection from "./CollapsableSection.tsx";
-import Button from "./ui/Button.tsx";
+import CollapsableSection from "./CollapsableSection";
+import Button from "./ui/Button";
 import {toast} from "react-hot-toast";
+import BugCard from "./BugCard"; // Import BugCard component
 
 interface ChallengeCardProps {
     challenge: Challenge;
@@ -99,6 +100,18 @@ const ChallengeCard: FC<ChallengeCardProps> = ({ challenge }) => {
                     </div>
                 )}
 
+                {/* Bug List */}
+                {challenge.bugs && challenge.bugs.length > 0 && (
+                    <div
+                        className="challenge-bugs-section mb-4"
+                        id={`challenge-bugs-section-${challenge.id}`}
+                        aria-label="Challenge Bugs Section"
+                        data-testid={`challenge-bugs-section-${challenge.id}`}
+                    >
+                        <BugCard bugs={challenge.bugs}/>
+                    </div>
+                )}
+
                 {/* Difficulty */}
                 <div
                     className="challenge-difficulty-section mb-4"
@@ -124,17 +137,22 @@ const ChallengeCard: FC<ChallengeCardProps> = ({ challenge }) => {
                     data-testid={`challenge-link-section-${challenge.id}`}
                 >
                     <div className={"flex items-center justify-start gap-2"}>
-                        <p>{window.location.href+challenge.link}</p>
-                        <Button onClick={()=>{
-                            try {
-                                navigator.clipboard.writeText(window.location.href+challenge.link);
-                                toast.success("Link copied to clipboard");
-                            }
-                            catch (e) {
-                                console.error(e);
-                                toast.error("Failed to copy link to clipboard");
-                            }
-                        }}>Copy link</Button>
+                        <p>{window.location.href + challenge.link}</p>
+                        <Button
+                            onClick={() => {
+                                try {
+                                    navigator.clipboard.writeText(window.location.href + challenge.link);
+                                    toast.success("Link copied to clipboard");
+                                } catch (e) {
+                                    console.error(e);
+                                    toast.error("Failed to copy link to clipboard");
+                                }
+                            }}
+                            aria-label="Copy Challenge Link"
+                            data-testid={`copy-link-button-${challenge.id}`}
+                        >
+                            Copy link
+                        </Button>
                     </div>
                     <a
                         id={`challenge-link-${challenge.id}`}

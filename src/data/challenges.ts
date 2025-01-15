@@ -16,6 +16,12 @@ export const challenges: Challenge[] = [
             "Try to find some bugs in the app by testing not allowed inputs or actions and by validation outputs",
         ],
         link: "challenge-1/",
+        bugs: [
+            "The total summary is not being updated and always shows 0",
+            "The complete and incomplete summary are switched",
+            "The todo page can be accessed without login",
+            "It is possible to edit the todos and save an empty string"
+        ],
         difficulty: 1
     },
     {
@@ -34,6 +40,7 @@ export const challenges: Challenge[] = [
             "Try to find some bugs in the app by testing not allowed inputs or actions and by validation outputs",
         ],
         link: "challenge-2/",
+        bugs: ["It is possible to edit the todos and save an empty string"],
         difficulty: 3
     },
     {

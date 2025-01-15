@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, {FormEvent, useState} from "react";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 
@@ -72,7 +72,7 @@ const Login: React.FC<LoginProps> = ({
                             // If withIds is false, set id to undefined
                             id={withIds ? "login-username-input" : undefined}
                             type="text"
-                            placeholder="Enter use rname"
+                            placeholder="Enter username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             // Conditionally add custom class

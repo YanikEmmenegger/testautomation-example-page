@@ -12,6 +12,7 @@ export interface Challenge {
     userStories: UserStory[];
     tasks: string[];
     link: string;
+    bugs?: string[];
     difficulty: number;
 }
 // src/types/Task.ts

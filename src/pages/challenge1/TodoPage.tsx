@@ -44,7 +44,7 @@ const TodoPage: React.FC = () => {
     // ----------------------------------------------------------------
     // 3) Statistics: total, completed, incomplete
     // ----------------------------------------------------------------
-    const totalCount = todos.length - 1;
+    const totalCount = 0;
     const completedCount = todos.filter((t) => !t.completed).length;
     const incompleteCount = todos.filter((t) => t.completed).length;
 
