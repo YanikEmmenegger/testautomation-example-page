@@ -1,4 +1,4 @@
-// src/pages/challenge1/Challenge2App.tsx
+// src/pages/challenge1/Challenge1App.tsx
 import {Navigate, Route, Routes} from "react-router-dom";
 import Challenge1LoginPage from "./Challenge1LoginPage";
 import TodoPage from "./TodoPage";
@@ -6,10 +6,13 @@ import TodoPage from "./TodoPage";
 function Challenge1App() {
     document.title = "Challenge #1";
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const testMode = urlParams.get("test_mode");
+
     return (
         <Routes>
             {/* The default route -> check isLoggedIn -> /login or /todo */}
-            <Route index element={<Navigate to="login" replace/>}/>
+            <Route index element={<Navigate to={testMode != null ? "login?test_mode" : "login"} replace/>}/>
 
             {/* /challenge-1/login */}
             <Route path="login" element={<Challenge1LoginPage />} />
@@ -18,7 +21,7 @@ function Challenge1App() {
             <Route
                 path="todo"
                 element={
-                        <TodoPage />
+                    <TodoPage/>
                 }
             />
         </Routes>

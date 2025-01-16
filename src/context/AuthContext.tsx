@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     // Delayed Login (0.5–5s)
     const loginDelayed = async (username: string, password: string) => {
-        await simulateDelay(0.5, 5); // Implement your own delay logic
+        await simulateDelay(0.5, 3); // Implement your own delay logic
         // Replace with real authentication logic
         if (username === "test" && password === "test") {
             setIsLoggedIn(true);
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     // Accept Cookie (delayed 0.5–10s)
     const acceptCookie = async () => {
-        await simulateDelay(0.5, 10); // Implement your own delay logic
+        await simulateDelay(0.5, 3); // Implement your own delay logic
         setIsCookieAccepted(true);
         Cookies.set("isCookieAccepted", "true"); // Session cookie
         // Notify other tabs about cookie acceptance

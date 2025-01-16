@@ -17,8 +17,8 @@ export const challenges: Challenge[] = [
         ],
         link: "challenge-1/",
         bugs: [
-            "The total summary is not being updated and always shows 0",
-            "The complete and incomplete summary are switched",
+            "The total summary is not being updated and always shows 0 - use ?test_mode=true in the URL to fix it ",
+            "The complete and incomplete summary are switched - use ?test_mode=true in the URL to fix it ",
             "The todo page can be accessed without login",
             "It is possible to edit the todos and save an empty string"
         ],

@@ -192,7 +192,7 @@ const TodoPage3: React.FC = () => {
             {/* Top bar: Logout */}
             <div
                 id="todo-page-header"
-                className="flex justify-end mb-4"
+                className="flex justify-start mb-4"
                 aria-label="Todo Page Header"
             >
                 <Button

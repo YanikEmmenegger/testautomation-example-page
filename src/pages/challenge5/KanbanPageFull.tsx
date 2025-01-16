@@ -460,7 +460,7 @@ const KanbanBoard: React.FC = () => {
             {showArchive && (
                 <div
                     id="archive-sidebar"
-                    className="fixed top-0 right-0 w-80 h-full bg-white shadow-xl p-4 flex flex-col"
+                    className="fixed top-0 left-0 w-80 h-full bg-white shadow-xl p-4 flex flex-col"
                     aria-label="Archive Sidebar"
                     style={{zIndex: 50}}
                 >

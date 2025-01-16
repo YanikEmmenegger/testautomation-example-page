@@ -143,7 +143,7 @@ const TodoPage: React.FC = () => {
             {/* Logout Button */}
             <div
                 id="todo-page-header"
-                className="flex justify-end mb-4"
+                className="flex justify-start mb-4"
                 aria-label="Header Section"
             >
 
