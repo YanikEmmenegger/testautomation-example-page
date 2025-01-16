@@ -9,6 +9,7 @@ const Challenge1LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("isLoggedIn", isLoggedIn);
         if (isLoggedIn) {
             navigate("/challenge-1/todo");
         }

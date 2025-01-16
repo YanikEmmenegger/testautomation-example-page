@@ -1,12 +1,8 @@
 // src/context/AuthContext.tsx
 
-import  {
-    createContext,
-    useState,
-    useContext,
-    ReactNode
-} from "react";
-import { simulateDelay } from "../utils/simulateDelay";
+import {createContext, ReactNode, useContext, useState,} from "react";
+import Cookies from "js-cookie"; // Import js-cookie
+import {simulateDelay} from "../utils/simulateDelay";
 
 interface AuthContextProps {
     /** Whether the user is currently logged in */
@@ -23,11 +19,11 @@ interface AuthContextProps {
      * Returns true if credentials are correct, otherwise false.
      */
     loginDelayed: (username: string, password: string) => Promise<boolean>;
-    /** Logout user (removes isLoggedIn from session). */
+    /** Logout user (removes isLoggedIn from storage). */
     logout: () => void;
     /**
      * Delayed cookie acceptance (0.5–10s).
-     * After acceptance, isCookieAccepted is true in session storage.
+     * After acceptance, isCookieAccepted is true in storage.
      */
     acceptCookie: () => Promise<void>;
 }
@@ -45,14 +41,17 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // -------------------------------
-    // 1. Lazy Initialization of State
+    // 1. Initialization from Cookies
     // -------------------------------
-    const storedLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
-    const storedCookieAccepted =
-        sessionStorage.getItem("isCookieAccepted") === "true";
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+        const loggedIn = Cookies.get("isLoggedIn");
+        return loggedIn === "true";
+    });
 
-    const [isLoggedIn, setIsLoggedIn] = useState(storedLoggedIn);
-    const [isCookieAccepted, setIsCookieAccepted] = useState(storedCookieAccepted);
+    const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(() => {
+        const cookieAccepted = Cookies.get("isCookieAccepted");
+        return cookieAccepted === "true";
+    });
 
     // -------------------------------
     // 2. Immediate Login
@@ -60,7 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const login = (username: string, password: string) => {
         if (username === "test" && password === "test") {
             setIsLoggedIn(true);
-            sessionStorage.setItem("isLoggedIn", "true");
+            Cookies.set("isLoggedIn", "true"); // Session cookie by default
             return true;
         }
         return false;
@@ -73,7 +72,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         await simulateDelay(0.5, 5); // random delay
         if (username === "test" && password === "test") {
             setIsLoggedIn(true);
-            sessionStorage.setItem("isLoggedIn", "true");
+            Cookies.set("isLoggedIn", "true");
             return true;
         }
         return false;
@@ -83,22 +82,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // 4. Logout
     // -------------------------------
     const logout = () => {
-        // Remove "isLoggedIn"
         setIsLoggedIn(false);
-        sessionStorage.removeItem("isLoggedIn");
+        Cookies.remove("isLoggedIn");
 
-        // (Optional) Remove "isCookieAccepted" if you want the banner to show again:
+        // Optionally remove isCookieAccepted if you want the banner to show again:
         setIsCookieAccepted(false);
-        sessionStorage.removeItem("isCookieAccepted");
+        Cookies.remove("isCookieAccepted");
     };
 
     // -------------------------------
     // 5. Accept Cookie (delayed 0.5–10s)
     // -------------------------------
     const acceptCookie = async () => {
-        await simulateDelay(0.5, 2);
+        await simulateDelay(0.5, 10);
         setIsCookieAccepted(true);
-        sessionStorage.setItem("isCookieAccepted", "true");
+        Cookies.set("isCookieAccepted", "true");
     };
 
     return (
@@ -109,7 +107,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 login,
                 loginDelayed,
                 logout,
-                acceptCookie
+                acceptCookie,
             }}
         >
             {children}
