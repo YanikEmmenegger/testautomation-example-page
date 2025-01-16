@@ -1,8 +1,8 @@
 // src/context/AuthContext.tsx
 
-import {createContext, ReactNode, useContext, useState,} from "react";
-import Cookies from "js-cookie"; // Import js-cookie
-import {simulateDelay} from "../utils/simulateDelay";
+import {createContext, ReactNode, useContext, useEffect, useState,} from "react";
+import Cookies from "js-cookie";
+import {simulateDelay} from "../utils/simulateDelay"; // Your existing delay utility
 
 interface AuthContextProps {
     /** Whether the user is currently logged in */
@@ -19,7 +19,7 @@ interface AuthContextProps {
      * Returns true if credentials are correct, otherwise false.
      */
     loginDelayed: (username: string, password: string) => Promise<boolean>;
-    /** Logout user (removes isLoggedIn from storage). */
+    /** Logout user (removes isLoggedIn and isCookieAccepted from storage). */
     logout: () => void;
     /**
      * Delayed cookie acceptance (0.5–10s).
@@ -40,64 +40,99 @@ const AuthContext = createContext<AuthContextProps>({
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    // -------------------------------
-    // 1. Initialization from Cookies
-    // -------------------------------
+    // Initialize state from session cookies
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
-        const loggedIn = Cookies.get("isLoggedIn");
-        return loggedIn === "true";
+        return Cookies.get("isLoggedIn") === "true";
     });
 
     const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(() => {
-        const cookieAccepted = Cookies.get("isCookieAccepted");
-        return cookieAccepted === "true";
+        return Cookies.get("isCookieAccepted") === "true";
     });
 
     // -------------------------------
-    // 2. Immediate Login
+    // 1. Authentication Functions
     // -------------------------------
+
+    // Immediate Login
     const login = (username: string, password: string) => {
+        // Replace with real authentication logic
         if (username === "test" && password === "test") {
             setIsLoggedIn(true);
-            Cookies.set("isLoggedIn", "true"); // Session cookie by default
+            Cookies.set("isLoggedIn", "true"); // Session cookie
+            // Notify other tabs about login
+            localStorage.setItem("auth-event", JSON.stringify({type: "login", timestamp: Date.now()}));
             return true;
         }
         return false;
     };
 
-    // -------------------------------
-    // 3. Delayed Login (0.5–5s)
-    // -------------------------------
+    // Delayed Login (0.5–5s)
     const loginDelayed = async (username: string, password: string) => {
-        await simulateDelay(0.5, 5); // random delay
+        await simulateDelay(0.5, 5); // Implement your own delay logic
+        // Replace with real authentication logic
         if (username === "test" && password === "test") {
             setIsLoggedIn(true);
-            Cookies.set("isLoggedIn", "true");
+            Cookies.set("isLoggedIn", "true"); // Session cookie
+            // Notify other tabs about login
+            localStorage.setItem("auth-event", JSON.stringify({type: "login", timestamp: Date.now()}));
             return true;
         }
         return false;
     };
 
-    // -------------------------------
-    // 4. Logout
-    // -------------------------------
+    // Logout
     const logout = () => {
         setIsLoggedIn(false);
-        Cookies.remove("isLoggedIn");
-
-        // Optionally remove isCookieAccepted if you want the banner to show again:
+        Cookies.remove("isLoggedIn"); // Remove session cookie
         setIsCookieAccepted(false);
-        Cookies.remove("isCookieAccepted");
+        Cookies.remove("isCookieAccepted"); // Remove session cookie
+        // Notify other tabs about logout
+        localStorage.setItem("auth-event", JSON.stringify({type: "logout", timestamp: Date.now()}));
+    };
+
+    // Accept Cookie (delayed 0.5–10s)
+    const acceptCookie = async () => {
+        await simulateDelay(0.5, 10); // Implement your own delay logic
+        setIsCookieAccepted(true);
+        Cookies.set("isCookieAccepted", "true"); // Session cookie
+        // Notify other tabs about cookie acceptance
+        localStorage.setItem("auth-event", JSON.stringify({type: "acceptCookie", timestamp: Date.now()}));
     };
 
     // -------------------------------
-    // 5. Accept Cookie (delayed 0.5–10s)
+    // 2. Synchronize State Across Tabs
     // -------------------------------
-    const acceptCookie = async () => {
-        await simulateDelay(0.5, 10);
-        setIsCookieAccepted(true);
-        Cookies.set("isCookieAccepted", "true");
-    };
+    useEffect(() => {
+        const handleStorageChange = (event: StorageEvent) => {
+            if (event.key === "auth-event" && event.newValue) {
+                const {type} = JSON.parse(event.newValue);
+                switch (type) {
+                    case "login":
+                        setIsLoggedIn(true);
+                        Cookies.set("isLoggedIn", "true"); // Ensure session cookie is set
+                        break;
+                    case "logout":
+                        setIsLoggedIn(false);
+                        Cookies.remove("isLoggedIn");
+                        setIsCookieAccepted(false);
+                        Cookies.remove("isCookieAccepted");
+                        break;
+                    case "acceptCookie":
+                        setIsCookieAccepted(true);
+                        Cookies.set("isCookieAccepted", "true"); // Ensure session cookie is set
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
+    }, []);
 
     return (
         <AuthContext.Provider

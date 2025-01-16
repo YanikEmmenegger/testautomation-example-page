@@ -21,7 +21,7 @@ const BugCard: FC<BugCardProps> = ({ bugs }) => {
             data-testid="bug-card"
         >
             <div className="flex justify-between items-center mb-2">
-                <h4 className="text-lg font-semibold text-red-700">Intended Bugs:</h4>
+                <h4 className="text-lg text-red-700">Intended Bugs, try to find by yourself first</h4>
                 <Button
                     onClick={toggleShowBugs}
                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"

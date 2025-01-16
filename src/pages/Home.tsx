@@ -1,15 +1,8 @@
 import ChallengeCard from "../components/ChallengeCard";
 import {challenges} from "../data/challenges.ts";
-import {useAuth} from "../context/AuthContext.tsx";
-import {useEffect} from "react";
 
 const Home = () => {
 
-    const { logout } = useAuth();
-
-    useEffect(() => {
-        logout()
-    });
 
     return (
         <div className="container mx-auto px-4 py-8">

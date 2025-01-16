@@ -16,6 +16,7 @@ const TodoPage: React.FC = () => {
     //const navigate = useNavigate();
     const {logout} = useAuth();
 
+
     // ----------------------------------------------------------------
     // 1) State initialization: load from local storage if present
     // ----------------------------------------------------------------
@@ -44,10 +45,26 @@ const TodoPage: React.FC = () => {
     // ----------------------------------------------------------------
     // 3) Statistics: total, completed, incomplete
     // ----------------------------------------------------------------
-    const totalCount = 0;
-    const completedCount = todos.filter((t) => !t.completed).length;
-    const incompleteCount = todos.filter((t) => t.completed).length;
+    //get url params (?test_mode=true or false)
+    // Parse the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const testMode = urlParams.get("test_mode");
 
+    // Declare the count variables in the outer scope
+    let totalCount;
+    let completedCount;
+    let incompleteCount;
+
+    // Assign values based on the testMode parameter
+    if (testMode !== null) {
+        totalCount = todos.length;
+        completedCount = todos.filter((t) => t.completed).length;
+        incompleteCount = todos.filter((t) => !t.completed).length;
+    } else {
+        totalCount = 0;
+        completedCount = todos.filter((t) => !t.completed).length;
+        incompleteCount = todos.filter((t) => t.completed).length;
+    }
     // ----------------------------------------------------------------
     // 4) Add a New Todo
     // ----------------------------------------------------------------
