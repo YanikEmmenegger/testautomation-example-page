@@ -41,7 +41,7 @@ const TodoPage3: React.FC = () => {
     // ----- Load Todos from Local Storage (Simulated Delay) -----
     useEffect(() => {
         async function loadTodos() {
-            await simulateDelay(0.5, 2); // random 0.5–2s
+            await simulateDelay(0.5, 4); // random 0.5–2s
             const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
             if (stored) {
                 setTodos(JSON.parse(stored));
@@ -81,7 +81,7 @@ const TodoPage3: React.FC = () => {
 
         setAddInProgress(true); // triggers "Adding..."
         try {
-            await simulateDelay(0.5, 2);
+            await simulateDelay(8, 10);
             const newTodo: Todo = {
                 id: Date.now(),
                 text: newTodoText,
@@ -102,7 +102,7 @@ const TodoPage3: React.FC = () => {
     const handleToggleComplete = async (id: number) => {
         setTodoOperation(id, "completing");
         try {
-            await simulateDelay(0.5, 2);
+            await simulateDelay(3, 10);
             setTodos((prev) =>
                 prev.map((todo) =>
                     todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -119,7 +119,7 @@ const TodoPage3: React.FC = () => {
     const handleDelete = async (id: number) => {
         setTodoOperation(id, "deleting");
         try {
-            await simulateDelay(0.5, 2);
+            await simulateDelay(4, 10);
             setTodos((prev) => prev.filter((todo) => todo.id !== id));
             toast.success("Todo deleted successfully!");
         } finally {
@@ -152,7 +152,7 @@ const TodoPage3: React.FC = () => {
 
         setTodoOperation(editingTodoId, "updating");
         try {
-            await simulateDelay(0.5, 2);
+            await simulateDelay(3, 10);
             setTodos((prev) =>
                 prev.map((todo) =>
                     todo.id === editingTodoId ? { ...todo, text: editingText } : todo
@@ -187,7 +187,7 @@ const TodoPage3: React.FC = () => {
             className="min-h-screen bg-gray-100 p-6 flex flex-col relative"
             aria-label="Todo Page Container"
         >
-            <CookieBanner />
+            <CookieBanner maxDelay={15} minDelay={8}/>
 
             {/* Top bar: Logout */}
             <div
@@ -225,13 +225,15 @@ const TodoPage3: React.FC = () => {
                     className="mb-4 flex justify-around text-sm text-gray-600"
                     aria-label="Todo Stats"
                 >
-                    <p id="todo-total-count" aria-label="Total Todos">
+                    <p id="todo-status-total" aria-label="Total Todos">
                         <span className="font-semibold">Total:</span> {totalCount}
                     </p>
-                    <p id="todo-completed-count" aria-label="Completed Todos">
+                    <p id="todo-status-completed"
+                       aria-label="Completed Todos">
                         <span className="font-semibold">Completed:</span> {completedCount}
                     </p>
-                    <p id="todo-incomplete-count" aria-label="Incomplete Todos">
+                    <p id="todo-status-incomplete"
+                       aria-label="Incomplete Todos">
                         <span className="font-semibold">Incomplete:</span> {incompleteCount}
                     </p>
                 </div>

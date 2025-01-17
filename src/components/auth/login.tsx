@@ -69,6 +69,7 @@ const Login: React.FC<LoginProps> = ({
                             Username
                         </label>
                         <Input
+                            disabled={loading}
                             // If withIds is false, set id to undefined
                             id={withIds ? "login-username-input" : undefined}
                             type="text"
@@ -90,6 +91,7 @@ const Login: React.FC<LoginProps> = ({
                             Password
                         </label>
                         <Input
+                            disabled={loading}
                             id={withIds ? "login-password-input" : undefined}
                             type="password"
                             placeholder="Enter password"
@@ -111,6 +113,7 @@ const Login: React.FC<LoginProps> = ({
                     <Button
                         id={withIds ? "login-submit-button" : undefined}
                         type="submit"
+                        disabled={loading}
                         className="w-full mt-2"
                     >
                         {

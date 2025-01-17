@@ -1,4 +1,4 @@
-import { FC, InputHTMLAttributes } from "react";
+import {FC, InputHTMLAttributes} from "react";
 
 interface BaseProps {
     /** Optional id for test automation and accessibility */
@@ -20,6 +20,8 @@ const Input: FC<InputProps> = ({ id, className, ...props }) => {
         border border-gray-300
         rounded
         px-3 py-2
+                disabled:opacity-60
+        disabled:cursor-not-allowed
         focus:outline-none
         focus:ring
         focus:ring-blue-200

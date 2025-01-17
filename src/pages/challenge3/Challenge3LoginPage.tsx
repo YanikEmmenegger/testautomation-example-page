@@ -20,7 +20,7 @@ const Challenge3LoginPage: React.FC = () => {
 
     const handleSubmit = async (username: string, password: string) => {
         setLoading(true);
-        const success = await loginDelayed(username, password);
+        const success = await loginDelayed(username, password, 5, 15);
         if (success) {
             navigate("/challenge-3/todo");
             setLoading(false);

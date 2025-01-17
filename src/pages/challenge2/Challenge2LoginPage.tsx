@@ -26,12 +26,18 @@ const Challenge2LoginPage: React.FC = () => {
     };
 
     return (
-        <Login withIds={false}
-               withCustomClasses={false}
-            title="Challenge #2 Login"
-            onSubmit={handleSubmit}
-            errorMessage={error}
-        />
+        <>
+            <Login withIds={false}
+                   withCustomClasses={false}
+                   title="Challenge #2 Login"
+                   onSubmit={handleSubmit}
+                   errorMessage={error}
+            />
+            <input className={"fixed top-10 right-6 bg-red-700 p-5"} type={"text"} disabled={false}
+                   placeholder={"Im just here to annoy"}/>
+            <p className={"fixed bottom-10 left-10"}>Invalid something else</p>
+        </>
+
     );
 };
 

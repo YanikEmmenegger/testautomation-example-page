@@ -2,7 +2,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-const CookieBanner: React.FC = () => {
+interface CookieBannerProps {
+    minDelay?: number;
+    maxDelay?: number;
+}
+
+const CookieBanner: React.FC<CookieBannerProps> = ({minDelay=0.5, maxDelay=5}) => {
     const { isCookieAccepted, acceptCookie } = useAuth();
     const [loading, setLoading] = useState(false);
 
@@ -14,7 +19,7 @@ const CookieBanner: React.FC = () => {
     const handleAccept = async () => {
         setLoading(true);
         try {
-            await acceptCookie(); // triggers the random delay, then sets isCookieAccepted to true
+            await acceptCookie(minDelay, maxDelay); // triggers the random delay, then sets isCookieAccepted to true
         } finally {
             setLoading(false);
         }

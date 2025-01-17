@@ -19,7 +19,7 @@ const Challenge3LoginPage: React.FC = () => {
 
     const handleSubmit = async (username: string, password: string) => {
         setLoading(true);
-        const success = await loginDelayed(username, password);
+        const success = await loginDelayed(username, password, 0.5, 3);
         if (success) {
             navigate("/challenge-5/kanban");
             setLoading(false);

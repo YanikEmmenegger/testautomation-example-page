@@ -72,7 +72,7 @@ const KanbanBoard: React.FC = () => {
     // -----------------------------
     useEffect(() => {
         async function loadTasks() {
-            await simulateDelay(0.5, 6);
+            await simulateDelay(0.5, 3);
             const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
             if (stored) {
                 setTasks(JSON.parse(stored));
@@ -642,8 +642,10 @@ const KanbanBoard: React.FC = () => {
                                             setDueDate(parsed);
                                             setDueDateInput(format(new Date(parsed), "dd.MM.yyyy"));
                                         } else {
-                                            toast.error("Invalid date format. Please use DD.MM.YYYY, DDMMYYYY, DD/MM/YYYY, or DD-MM-YYYY.");
-                                            setDueDate("");
+                                            if (dueDateInput.trim()) {
+                                                toast.error("Invalid date format. Please use DD.MM.YYYY, DDMMYYYY, DD/MM/YYYY, or DD-MM-YYYY.");
+                                                setDueDate("");
+                                            }
                                         }
                                     }}
                                     className="w-full pr-10"

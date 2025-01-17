@@ -18,14 +18,14 @@ interface AuthContextProps {
      * Delayed login (random 0.5–5s).
      * Returns true if credentials are correct, otherwise false.
      */
-    loginDelayed: (username: string, password: string) => Promise<boolean>;
+    loginDelayed: (username: string, password: string, min:number, max: number) => Promise<boolean>;
     /** Logout user (removes isLoggedIn and isCookieAccepted from storage). */
     logout: () => void;
     /**
      * Delayed cookie acceptance (0.5–10s).
      * After acceptance, isCookieAccepted is true in storage.
      */
-    acceptCookie: () => Promise<void>;
+    acceptCookie: (min: number, max:number) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -67,8 +67,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     // Delayed Login (0.5–5s)
-    const loginDelayed = async (username: string, password: string) => {
-        await simulateDelay(0.5, 3); // Implement your own delay logic
+    const loginDelayed = async (username: string, password: string, min:number, max:number) => {
+        await simulateDelay(min, max); // Implement your own delay logic
         // Replace with real authentication logic
         if (username === "test" && password === "test") {
             setIsLoggedIn(true);
@@ -91,8 +91,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     // Accept Cookie (delayed 0.5–10s)
-    const acceptCookie = async () => {
-        await simulateDelay(0.5, 3); // Implement your own delay logic
+    const acceptCookie = async (min:number, max:number) => {
+        await simulateDelay(min, max); // Implement your own delay logic
         setIsCookieAccepted(true);
         Cookies.set("isCookieAccepted", "true"); // Session cookie
         // Notify other tabs about cookie acceptance

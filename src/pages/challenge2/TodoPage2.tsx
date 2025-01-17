@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
+import React, {useEffect, useState} from "react";
+import {useAuth} from "../../context/AuthContext";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 
@@ -313,6 +313,10 @@ const TodoPage2: React.FC = () => {
                     ))}
                 </ul>
             </div>
+            <p>
+                <span>Total:</span></p>
+            <p><span>Completed:</span></p>
+            <p><span>Incomplete:</span></p>
         </div>
     );
 };
